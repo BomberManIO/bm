@@ -27,11 +27,11 @@ publicDir = path.join(__dirname,'public');
 
 app.use(express.static(publicDir))
 
-// io = require("socket.io").listen(server);
-app.listen(port, () => {
+var server = app.listen(port, () => {
     console.log('listening on *:3000');
-  });
+});
 
+io = require("socket.io").listen(server);
 
 // function onClientDisconnect() {
 // 	console.log("Player has disconnected");
