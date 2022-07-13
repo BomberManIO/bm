@@ -1,0 +1,5 @@
+#!/bin/bash
+cd /home/ec2-user/express-service
+export NODE_ENV=production
+forever start server.js
+service httpd start
