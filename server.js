@@ -1,8 +1,9 @@
-const express = require('express');
-const app = express();
+var express = require('express');
+var port = process.env.PORT || 3000;
 const http = require('http');
-var path = require('path');
-
+var app = express(),
+path = require('path'),
+publicDir = path.join(__dirname,'public');
 
 // var Player = require("./entities/player");
 // var Bomb = require("./entities/bomb");
@@ -27,7 +28,7 @@ publicDir = path.join(__dirname,'public');
 app.use(express.static(publicDir))
 
 // io = require("socket.io").listen(server);
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log('listening on *:3000');
   });
 
