@@ -18,7 +18,7 @@ var games = {};
 TILE_SIZE = 40;
 // Broadcasting loop works better than sending an update every time a player moves because waiting for player movement messages adds
 // another source of jitter.
-var updateInterval = 100; // Broadcast updates every 100 ms.
+var updateInterval = 50; // Broadcast updates every 100 ms.
 
 // Game objects
 var Lobby = require("./lobby");
