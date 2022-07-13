@@ -1,7 +1,8 @@
-var express = require('express');
-var port = process.env.PORT || 3000;
-var app = express();
-path = require('path');
+const express = require('express');
+const app = express();
+const http = require('http');
+var path = require('path');
+
 
 var Player = require("./entities/player");
 var Bomb = require("./entities/bomb");
@@ -25,8 +26,17 @@ publicDir = path.join(__dirname,'public');
 
 app.use(express.static(publicDir))
 
-var server = app.listen(8000);
-io = require("socket.io").listen(server);
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+var io = new Server(server, {
+    cors: {
+        origin: "http://localhost",
+        methods: ["GET", "POST"]
+      }
+});
+server.listen(8000, () => {
+    console.log('listening on *:8000');
+  });
 
 
 function onClientDisconnect() {
