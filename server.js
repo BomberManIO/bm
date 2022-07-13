@@ -28,8 +28,8 @@ app.use(express.static(publicDir))
 
 const server = http.createServer(app);
 io = require("socket.io").listen(server);
-server.listen(8000, () => {
-    console.log('listening on *:8000');
+server.listen(3000, () => {
+    console.log('listening on *:3000');
   });
 
 
