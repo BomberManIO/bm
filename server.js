@@ -25,6 +25,7 @@ var Lobby = require("./lobby");
 
 publicDir = path.join(__dirname,'public');
 
+app.use(cors());
 app.use(express.static(publicDir))
 
 var server = app.listen(port, () => {
