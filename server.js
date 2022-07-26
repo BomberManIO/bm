@@ -1,5 +1,6 @@
 var express = require('express');
 var port = process.env.PORT || 3000;
+const cors = require('cors');
 const http = require('http');
 var app = express(),
 path = require('path'),
@@ -32,7 +33,11 @@ var server = app.listen(port, () => {
     console.log('listening on *:3000');
 });
 
-io = require("socket.io").listen(server);
+io = require("socket.io").listen(server,
+	{
+cors: {
+origin: '*',
+}});
 
 function onClientDisconnect() {
 	console.log("Player has disconnected");
