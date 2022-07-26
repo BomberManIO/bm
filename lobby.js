@@ -27,13 +27,12 @@ var Lobby = {
 	},
 
 	initialize: function() {
-		for(var i = 0; i < numLobbySlots; i++) {
-			lobbySlots.push(new PendingGame());
-		}
+		// for(var i = 0; i < numLobbySlots; i++) {
+		// 	lobbySlots.push(new PendingGame());
+		// }
 	},
 
 	onEnterLobby: function(data) {
-		console.log("Entering lobby", lobbyId);
 		this.join(lobbyId);
 		io.in(lobbyId).emit("add slots", lobbySlots);
 	},
@@ -47,22 +46,35 @@ var Lobby = {
 	},
 
 	onStageSelect: function(data) {
-		console.log("Stage select", this.gameId, data.mapName);
 		const availableGame = lobbySlots.findIndex(l => l.state === "joinable" && l.mapName === data.mapName);
-		this.gameId = availableGame !== -1 ? availableGame : lobbySlots.findIndex(l => l.state === "empty");
+
+		if(availableGame !== -1) {
+			this.gameId = availableGame;
+		} else {
+			const emptyGame = lobbySlots.findIndex(l => l.state === "empty");
+
+			if(emptyGame !== -1) {
+				this.gameId = emptyGame
+			}
+			else {
+				const newGame = lobbySlots.push(new PendingGame());
+				this.gameId = newGame - 1;
+			}
+		}
+
+		console.log("lobbySlots", lobbySlots);
+
 		lobbySlots[this.gameId].state = "joinable";
 		lobbySlots[this.gameId].mapName = data.mapName;
-		debugger;
 		broadcastSlotStateUpdate(this.gameId, "joinable");
 	},
 
 	onEnterPendingGame: function(data) {
-		console.log("Entering pending game", data.gameId);
 		var pendingGame = lobbySlots[this.gameId];
 	
 		this.leave(lobbyId);
 		this.join(this.gameId);
-	
+		
 		pendingGame.addPlayer(this.id);
 	
 		this.emit("show current players", {players: pendingGame.players});

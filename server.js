@@ -1,5 +1,5 @@
 var express = require('express');
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 8080;
 const cors = require('cors');
 const http = require('http');
 var app = express(),
@@ -30,7 +30,7 @@ app.use(cors());
 app.use(express.static(publicDir))
 
 var server = app.listen(port, () => {
-    console.log('listening on *:3000');
+    console.log('listening on port ' + port);
 });
 
 io = require("socket.io").listen(server,
@@ -57,7 +57,6 @@ function onClientDisconnect() {
 		var game = games[this.gameId];
 	
 		if(this.id in game.players) {
-			console.log("deleting " + this.id);
 			delete game.players[this.id];
 	
 			io.in(this.gameId).emit("remove player", {id: this.id});	
@@ -78,7 +77,6 @@ function onClientDisconnect() {
 
 // Deletes the game object and frees up the slot.
 function terminateExistingGame(gameId) {
-	console.log("Terminating game " + gameId);
 	games[gameId].clearBombs();
 
 	delete games[gameId];
@@ -116,12 +114,10 @@ function onStartGame() {
 };
 
 function onRegisterMap(data) {
-	console.log("Registering map " + data.mapName);
 	games[this.gameId].map = new Map(data, TILE_SIZE);
 };
 
 function onMovePlayer(data) {
-	console.log("Player " + this.id + " moved to " + data.direction);
 	var game = games[this.gameId];
 
 	if(game === undefined || game.awaitingAcknowledgements) {
@@ -142,7 +138,6 @@ function onMovePlayer(data) {
 };
 
 function onPlaceBomb(data) {
-	console.log("Placed Bomb...");
 	var game = games[this.gameId];
 	var player = game.players[this.id];
 
@@ -161,7 +156,6 @@ function onPlaceBomb(data) {
 	player.numBombsAlive++;
 
 	var bombTimeoutId = setTimeout(function() {
-		console.log("detonatin with ", game.players);
 		var explosionData = bomb.detonate(game.map, player.bombStrength, game.players);
 		player.numBombsAlive--;
 
@@ -180,7 +174,6 @@ function onPlaceBomb(data) {
 };
 
 function onPowerupOverlap(data) {
-	console.log("Power up overlap...");
 	var powerup = games[this.gameId].map.claimPowerup(data.x, data.y);
 
 	if(!powerup) {
@@ -199,7 +192,6 @@ function onPowerupOverlap(data) {
 };
 
 function handlePlayerDeath(deadPlayerIds, gameId) {
-	console.log("Handling player death...");
 	var tiedWinnerIds;
 
 	if(deadPlayerIds.length > 1 && games[gameId].numPlayersAlive - deadPlayerIds.length == 0) {
@@ -218,7 +210,6 @@ function handlePlayerDeath(deadPlayerIds, gameId) {
 };
 
 function endRound(gameId, tiedWinnerIds) {
-	console.log("Round ended");
 	var roundWinnerColors = [];
 
 	var game = games[gameId];
@@ -258,7 +249,6 @@ function onRegister(account) {
 }
 
 function onReadyForRound() {
-	console.log("Player " + this.id + " is ready for round");
 	var game = games[this.gameId];
 
 	if(!game.awaitingAcknowledgements) {
