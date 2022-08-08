@@ -29,22 +29,22 @@ Bomb.prototype = {
 
 	generateExplosionInDirection: function(x, y, xCoefficient, yCoefficient, strength, middleKey, endKey, explosionData, map, players) {
 		for(var i = 0; i < strength - 1; i++) {
-			var distanceBetweenCenters = 40;
+			var distanceBetweenCenters = 32;
 
-			if(this.generateIndividualExplosion(x + xCoefficient * (i * distanceBetweenCenters + 35),
-				y + yCoefficient * (i * distanceBetweenCenters + 35), xCoefficient, yCoefficient,
+			if(this.generateIndividualExplosion(x + xCoefficient * (i * distanceBetweenCenters + 29),
+				y + yCoefficient * (i * distanceBetweenCenters + 29), xCoefficient, yCoefficient,
 				middleKey, explosionData, map, players, endKey) == false) {
 				return;
 			}
 		}
 
-		this.generateIndividualExplosion(x + xCoefficient * (((strength - 1) * 40) + 35), y + yCoefficient * (((strength - 1) * 40) + 35),
+		this.generateIndividualExplosion(x + xCoefficient * (((strength - 1) * 32) + 29), y + yCoefficient * (((strength - 1) * 32) + 29),
 		xCoefficient, yCoefficient, endKey, explosionData, map, players);
 	},
 
 	generateIndividualExplosion: function(x, y, xCoefficient, yCoefficient, key, explosionData, map, players, destroyBlockKey) {
-		var hitData = map.hitTest(x + 20 * xCoefficient, y + 20 * yCoefficient);
-
+		var hitData = map.hitTest(x + 16 * xCoefficient, y + 16 * yCoefficient);
+		debugger;
 		if(hitData.hitBlock == 2) {
 			var randomItem = map.destroyTile(hitData.row, hitData.col);
 			explosionData.destroyedBlocks.push({row: hitData.row, col: hitData.col, itemId: randomItem});

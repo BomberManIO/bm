@@ -19,12 +19,12 @@ var MapInfo = {
 	},
 	levelThree: {
 		spawnLocations: [{x: 2, y: 1}, {x: 13, y: 1}, {x: 2, y: 13}, {x: 13, y: 13}],
-		collisionTiles: [3, 15],
+		collisionTiles: [1, 29, 30, 31, 32, 34, 38,39, 40 ,41 ,42, 43, 8],
 		groundLayer: "Ground",
 		blockLayer: "Blocks",
 		tilesetName: "tiles",
 		tilesetImage: "tiles",
-		destructibleTileId: 15
+		destructibleTileId: 1
 	}
 };
 

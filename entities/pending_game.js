@@ -1,6 +1,6 @@
 // Store this somewhere as metadata?
 var colorIndices = {
-	"white": 0,
+	"white": 6,
 	"black": 1,
 	"blue": 2,
 	"red": 3,
@@ -12,8 +12,8 @@ var PendingGame = function() {
 	this.players = {};
 	this.state = "empty";
 	this.mapName = "";
-	this.colors = [{colorName: "white", available: true}, {colorName: "black", available: true}, {colorName: "blue", available: true}, {colorName: "red", available: true}, 
-	{colorName: "purple", available: true}, {colorName: "green", available: true}];
+	this.colors = [{colorName: "white", available: true, id: 0}, {colorName: "black", available: true, id: 1}, {colorName: "blue", available: true, id: 2}, {colorName: "red", available: true, id: 3}, 
+	{colorName: "purple", available: true, id: 4}, {colorName: "green", available: true, id: 5}];
 };
 
 PendingGame.prototype = {
