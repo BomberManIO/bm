@@ -18,7 +18,7 @@ var MapInfo = {
 		destructibleTileId: 191
 	},
 	levelThree: {
-		spawnLocations: [{x: 2, y: 1}, {x: 13, y: 1}, {x: 2, y: 13}, {x: 13, y: 13}],
+		spawnLocations: [{x: 2, y: 1}, {x: 13, y: 1}, {x: 2, y: 13}, {x: 13, y: 13}, {x: 2, y: 5}, {x: 13, y: 5}],
 		collisionTiles: [1, 29, 30, 31, 32, 34, 38,39, 40 ,41 ,42, 43, 8],
 		groundLayer: "Ground",
 		blockLayer: "Blocks",

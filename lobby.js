@@ -75,7 +75,7 @@ var Lobby = {
 		this.leave(lobbyId);
 		this.join(this.gameId);
 		
-		pendingGame.addPlayer(this.id);
+		pendingGame.addPlayer(this.id, this.gameId);
 	
 		this.emit("show current players", {players: pendingGame.players});
 		this.broadcast.to(this.gameId).emit("player joined", {id: this.id, color: pendingGame.players[this.id].color});

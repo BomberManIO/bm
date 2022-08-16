@@ -207,6 +207,7 @@ function terminateExistingGame(gameId) {
 };
 
 function onStartGame() {
+	debugger;
 	console.log("Starting game");
 	var lobbySlots = Lobby.getLobbySlots();
 
