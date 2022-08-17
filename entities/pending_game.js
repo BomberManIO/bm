@@ -52,7 +52,7 @@ PendingGame.prototype = {
 			this.startGame = setTimeout(function() {
 				// emit server start game
 				io.in(gameId).emit("start_game_timeleft");
-			}, 5000);
+			}, 2000);
 		}
 	},
 

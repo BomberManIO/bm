@@ -286,7 +286,7 @@ function onPlaceBomb(data) {
 		game.map.removeBombFromGrid(data.x, data.y);
 
 		handlePlayerDeath(explosionData.killedPlayers, gameId);
-	}, 2000);
+	}, 5000);
 
 	var bomb = new Bomb(normalizedBombLocation.x, normalizedBombLocation.y, bombTimeoutId);
 	game.bombs[bombId] = bomb;
@@ -350,7 +350,7 @@ function endRound(gameId, tiedWinnerIds) {
 	if(game.currentRound > 2) {
 		var gameWinners = game.calculateGameWinners();
 
-		if(gameWinners.length == 1 && (game.currentRound > 3 || gameWinners[0].wins == 2)) {
+		if(gameWinners.length == 1 && gameWinners[0].wins == 2) {
 			io.in(gameId).emit("end game", {completedRoundNumber: game.currentRound - 1, roundWinnerColors: roundWinnerColors, 
 				gameWinnerColor: gameWinners[0].color});
 			terminateExistingGame(gameId);
@@ -434,6 +434,7 @@ function setEventHandlers () {
 		client.on("select stage", Lobby.onStageSelect);
 		client.on("enter pending game", Lobby.onEnterPendingGame);
 		client.on("leave pending game", Lobby.onLeavePendingGame);
+
 	});
 };
  
