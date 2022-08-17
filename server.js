@@ -207,7 +207,6 @@ function terminateExistingGame(gameId) {
 };
 
 function onStartGame() {
-	debugger;
 	console.log("Starting game");
 	var lobbySlots = Lobby.getLobbySlots();
 
@@ -286,7 +285,7 @@ function onPlaceBomb(data) {
 		game.map.removeBombFromGrid(data.x, data.y);
 
 		handlePlayerDeath(explosionData.killedPlayers, gameId);
-	}, 5000);
+	}, 2000);
 
 	var bomb = new Bomb(normalizedBombLocation.x, normalizedBombLocation.y, bombTimeoutId);
 	game.bombs[bombId] = bomb;
@@ -347,7 +346,6 @@ function endRound(gameId, tiedWinnerIds) {
 
 	game.currentRound++;
 
-	debugger;
 	if(game.currentRound > 2) {
 		var gameWinners = game.calculateGameWinners();
 

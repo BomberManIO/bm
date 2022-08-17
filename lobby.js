@@ -39,7 +39,6 @@ var Lobby = {
 
 	onHostGame: function(data) {
 		// console.log("Hosting game", data.gameId);
-		// debugger;
 		// lobbySlots[data.gameId].state = "settingup";
 		// this.gameId = data.gameId;
 		// broadcastSlotStateUpdate(data.gameId, "settingup");
@@ -78,6 +77,7 @@ var Lobby = {
 		pendingGame.addPlayer(this.id, this.gameId);
 	
 		this.emit("show current players", {players: pendingGame.players});
+		console.log("Player joinded color: ", pendingGame.players[this.id].color);
 		this.broadcast.to(this.gameId).emit("player joined", {id: this.id, color: pendingGame.players[this.id].color});
 	
 		if(pendingGame.getNumPlayers() >= MapInfo[pendingGame.mapName].spawnLocations.length) {

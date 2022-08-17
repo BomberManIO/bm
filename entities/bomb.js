@@ -44,7 +44,6 @@ Bomb.prototype = {
 
 	generateIndividualExplosion: function(x, y, xCoefficient, yCoefficient, key, explosionData, map, players, destroyBlockKey) {
 		var hitData = map.hitTest(x + 16 * xCoefficient, y + 16 * yCoefficient);
-		debugger;
 		if(hitData.hitBlock == 2) {
 			var randomItem = map.destroyTile(hitData.row, hitData.col);
 			explosionData.destroyedBlocks.push({row: hitData.row, col: hitData.col, itemId: randomItem});

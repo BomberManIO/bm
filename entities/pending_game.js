@@ -52,18 +52,19 @@ PendingGame.prototype = {
 			this.startGame = setTimeout(function() {
 				// emit server start game
 				io.in(gameId).emit("start_game_timeleft");
-			}, 2000);
+			}, 5000);
 		}
 	},
 
 	claimFirstAvailableColor: function() {
-		for(var i = 0; i < this.colors.length; i++) {
-			var color = this.colors[i];
-			if(color.available) {
-				color.available = false;
-				return color.colorName;
-			}
-		}
+		// Pick randomly color from available colors
+		var availableColors = this.colors.filter(function(color) {
+			return color.available;
+		}	
+		);
+		var randomIndex = Math.floor(Math.random() * availableColors.length);
+		availableColors[randomIndex].available = false;
+		return availableColors[randomIndex].colorName;
 	}
 };
 
