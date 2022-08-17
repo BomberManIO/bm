@@ -347,6 +347,7 @@ function endRound(gameId, tiedWinnerIds) {
 
 	game.currentRound++;
 
+	debugger;
 	if(game.currentRound > 2) {
 		var gameWinners = game.calculateGameWinners();
 
