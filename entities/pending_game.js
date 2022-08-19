@@ -18,7 +18,7 @@ var PendingGame = function() {
 	this.state = "empty";
 	this.mapName = "";
 	this.colors = [
-		// {colorName: "grey", available: true, id: 0}, 
+		{colorName: "grey", available: true, id: 0}, 
 		{colorName: "turquoise", available: true, id: 1}, 
 		{colorName: "brown", available: true, id: 2}, 
 		{colorName: "white", available: true, id: 3}, 
@@ -47,12 +47,23 @@ PendingGame.prototype = {
 	},
 
 	addPlayer: function(id, gameId) {
+		const clockTime = 5000;
 		this.players[id] = {color: this.claimFirstAvailableColor()};
 		if(this.getNumPlayers() > 1) {
+			io.in(gameId).emit("start_pending_clock", {timeleft: clockTime / 1000});
 			this.startGame = setTimeout(function() {
-				// emit server start game
-				io.in(gameId).emit("start_game_timeleft");
-			}, 5000);
+				// emit server start game if there are enough players if not emit not enough players and remove game
+				if(this.getNumPlayers() > 1) {
+					this.state = "started";
+					io.in(gameId).emit("start_game", );
+				} else {
+					this.state = "empty";
+					io.in(gameId).emit("not_enough_players");
+				}
+			}.bind(this), clockTime);
+
+				// io.in(gameId).emit("start_game_timeleft", this.players.length > 1);
+				
 		}
 	},
 
