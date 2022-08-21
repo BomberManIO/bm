@@ -150,7 +150,7 @@ module.exports = app;
  TILE_SIZE = 32;
 // Broadcasting loop works better than sending an update every time a player moves because waiting for player movement messages adds
 // another source of jitter.
-var updateInterval = 50; // Broadcast updates every 100 ms.
+var updateInterval = 30; // Broadcast updates every 100 ms.
 io = require("socket.io").listen(server,
 	{
 	cors: {
