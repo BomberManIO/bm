@@ -55,7 +55,7 @@ PendingGame.prototype = {
 				// emit server start game if there are enough players if not emit not enough players and remove game
 				if(this.getNumPlayers() > 1) {
 					this.state = "started";
-					io.in(gameId).emit("start_game", );
+					io.in(gameId).emit("start_game_timeleft");
 				} else {
 					this.state = "empty";
 					io.in(gameId).emit("not_enough_players");
