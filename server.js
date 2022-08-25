@@ -267,6 +267,7 @@ function onPlaceBomb(data) {
 
 	var gameId = this.gameId;
 	var bombId = data.id;
+
 	var normalizedBombLocation = game.map.placeBombOnGrid(data.x, data.y);
 
 	if(normalizedBombLocation == -1) {
