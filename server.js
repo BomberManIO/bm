@@ -234,7 +234,9 @@ function onStartGame() {
 };
 
 function onRegisterMap(data) {
+	console.log("Registering map", this.gameId);
 	games[this.gameId].map = new Map(data, TILE_SIZE);
+	console.log("Map registered", games[this.gameId].map);
 };
 
 function onMovePlayer(data) {
@@ -265,6 +267,7 @@ function onPlaceBomb(data) {
 		return;
 	}
 
+	console.log("Placing bomb", this.gameId);
 	var gameId = this.gameId;
 	var bombId = data.id;
 
